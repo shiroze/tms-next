@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react"
 import { Geist, Geist_Mono } from "next/font/google";
+import Sidebar from '~/components/Sidebar'
+
 import "~/app/globals.css";
 
 const geistSans = Geist({
@@ -27,7 +30,14 @@ export default function GuestLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="flex h-screen">
+          <SessionProvider>
+            <Sidebar />
+            <main className="flex-1 p-8 bg-gray-100 overflow-y-auto">
+              {children}
+            </main>
+          </SessionProvider>
+        </div>
       </body>
     </html>
   );
